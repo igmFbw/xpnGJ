@@ -20,11 +20,19 @@ public class Blob : MonoBehaviour
     private Vector2[] uv;
     private Vector3[,] offsets;
     private float[,] weights;
+    private float currentScale = 1f;
+    private float startScale = 2.5f;
+    private Vector3[] initialLocalPositions;
+    private Vector3[] virtualReferencePoints;
     private void Start()
     {
+        currentScale = 2.5f;
         CreateReferencePoints();
         CreateMesh();
         MapVerticesToReferencePoints();
+        virtualReferencePoints = new Vector3[referencePointsCount];
+        for (int i = 0; i < referencePointsCount; i++)
+            virtualReferencePoints[i] = referencePoints[i].transform.localPosition;
     }
     private void Update()
     {
@@ -47,6 +55,7 @@ public class Blob : MonoBehaviour
     }*/
     void CreateReferencePoints()
     {
+        initialLocalPositions = new Vector3[referencePointsCount];
         referencePoints = new GameObject[referencePointsCount];
         allReferencePoints = new Rigidbody2D[referencePointsCount];
         Vector3 offsetFromCenter = ((0.5f - referencePointRadius) * Vector3.up);
@@ -60,6 +69,11 @@ public class Blob : MonoBehaviour
             //referencePoints[i].transform.parent = transform;
             referencePoints[i].transform.parent = pointParent;
             Quaternion rotation = Quaternion.AngleAxis(angle * (i - 1), Vector3.back);
+
+            Vector3 localPos = rotation * offsetFromCenter;
+            referencePoints[i].transform.localPosition = localPos;
+            initialLocalPositions[i] = localPos; // 保存初始位置
+
             referencePoints[i].transform.localPosition = rotation * offsetFromCenter;
             Rigidbody2D body = referencePoints[i].AddComponent<Rigidbody2D>();
             if (tag == "bullet")
@@ -154,7 +168,7 @@ public class Blob : MonoBehaviour
                 weights[i, j] /= totalWeight;
         }
     }
-    void UpdateVertexPositions()
+    private void UpdateVertexPositions()
     {
         Vector3[] vertices = new Vector3[vertexCount];
         for (int i = 0; i < vertexCount; i++)
@@ -163,14 +177,9 @@ public class Blob : MonoBehaviour
             for (int j = 0; j < referencePointsCount; j++)
                 vertices[i] += weights[i, j] * (LocalPosition(referencePoints[j]) + offsets[i, j]);
         }
-
-        //PreserveVolume(vertices);
-
         Mesh mesh = GetComponent<MeshFilter>().mesh;
         mesh.vertices = vertices;
         mesh.RecalculateBounds();
-
-
     }
     private Vector3 LocalPosition(GameObject obj)
     {
@@ -185,25 +194,77 @@ public class Blob : MonoBehaviour
             z++;
         }
     }
-    private Vector3 CalculateMeshCenter(Vector3[] vertices)
-    {
-        Vector3 center = Vector3.zero;
-        foreach (Vector3 vertex in vertices)
-        {
-            center += vertex;
-        }
-        return center / vertices.Length;
-    }
     public void resize(float newScale)
     {
-        transform.localScale =  new Vector3 (newScale, newScale, 1);
+        if (Mathf.Approximately(newScale, currentScale)) return;
+        float scaleFactor = newScale / startScale;
+        rb.simulated = false;
+        foreach (var r in allReferencePoints)
+        {
+            r.simulated = false;
+            var col = r.GetComponent<Collider2D>();
+            if (col != null) col.enabled = false;
+        }
+        transform.localScale = new Vector3(newScale, newScale, 1);
+        for (int i = 0; i < referencePointsCount; i++)
+            virtualReferencePoints[i] = initialLocalPositions[i] * scaleFactor;
+        UpdateVertexPositionsWithVirtualPoints();
+        StartCoroutine(SyncRealPointsToVirtualSmooth());
+        currentScale = newScale;
+    }
+    private IEnumerator SyncRealPointsToVirtualSmooth()
+    {
+        float duration = 0.2f;
+        float elapsed = 0f;
+        Vector3[] startPositions = new Vector3[referencePointsCount];
+        for (int i = 0; i < referencePointsCount; i++)
+            startPositions[i] = referencePoints[i].transform.localPosition;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            for (int i = 0; i < referencePointsCount; i++)
+                referencePoints[i].transform.localPosition = Vector3.Lerp(startPositions[i], virtualReferencePoints[i], t);
+            yield return null;
+        }
+        for (int i = 0; i < referencePointsCount; i++)
+            referencePoints[i].transform.localPosition = virtualReferencePoints[i];
         foreach (var rp in referencePoints)
         {
-            var col = rp.GetComponent<CircleCollider2D>();
-            col.radius = referencePointRadius * newScale * 0.5f;
+            foreach (var joint in rp.GetComponents<SpringJoint2D>())
+            {
+                joint.autoConfigureConnectedAnchor = false;
+                joint.connectedAnchor = LocalPosition(rp) - LocalPosition(joint.connectedBody.gameObject);
+                joint.distance = 0f; 
+                joint.enabled = true;
+            }
         }
-        CreateMesh();
-        MapVerticesToReferencePoints();
+        rb.simulated = true;
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0;
+        rb.Sleep();
+        foreach (var r in allReferencePoints)
+        {
+            r.simulated = true;
+            r.velocity = Vector2.zero;
+            r.angularVelocity = 0;
+            r.Sleep();
+            var col = r.GetComponent<Collider2D>();
+            if (col != null)
+                col.enabled = true;
+        }
     }
-
+    private void UpdateVertexPositionsWithVirtualPoints()
+    {
+        Vector3[] vertices = new Vector3[vertexCount];
+        for (int i = 0; i < vertexCount; i++)
+        {
+            vertices[i] = Vector3.zero;
+            for (int j = 0; j < referencePointsCount; j++)
+                vertices[i] += weights[i, j] * (virtualReferencePoints[j] + offsets[i, j]);
+        }
+        Mesh mesh = GetComponent<MeshFilter>().mesh;
+        mesh.vertices = vertices;
+        mesh.RecalculateBounds();
+    }
 }

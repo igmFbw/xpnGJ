@@ -35,6 +35,5 @@ public class softBullet : MonoBehaviour
     public void resetVelocity(GameObject go)
     {
         rb.velocity = new Vector2(facing * speed, 0);
-        Debug.Log(rb.velocity);
     }
 }

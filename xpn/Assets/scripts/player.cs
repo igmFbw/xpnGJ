@@ -32,6 +32,11 @@ public class player : MonoBehaviour
         move();
         if(Input.GetKeyDown(KeyCode.E))
             attack();
+        if(Input.GetKeyDown(KeyCode.J))
+        {
+            float newScale = transform.localScale.y + .15f;
+            softBlob.resize(newScale);
+        }
     }
     private void OnDestroy()
     {
@@ -41,14 +46,14 @@ public class player : MonoBehaviour
     {
         if(height <= 20)
         {
-            return;
+            //return;
         }
         softBullet newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         newBullet.init(trigger.isColorBlue, isFaceRight);
         height -= 20;
         //transform.localScale = new Vector3(transform.localScale.x - .15f,transform.localScale.y - .15f,1);
-        //float newScale = transform.localScale.y - .15f;
-        //softBlob.resize(newScale);
+        float newScale = transform.localScale.y - .15f;
+        softBlob.resize(newScale);
     }
     public void eatBucket(GameObject go)
     {

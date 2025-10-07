@@ -51,7 +51,6 @@ public class player : MonoBehaviour
         softBullet newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         newBullet.init(trigger.isColorBlue, isFaceRight);
         height -= 20;
-        //transform.localScale = new Vector3(transform.localScale.x - .15f,transform.localScale.y - .15f,1);
         float newScale = transform.localScale.y - .15f;
         softBlob.resize(newScale);
     }
@@ -63,8 +62,7 @@ public class player : MonoBehaviour
         if (height > 100)
             height = 100;
         Destroy(go);
-        //transform.localScale = new Vector3(transform.localScale.x + .15f, transform.localScale.y + .15f, 1);
-        //softBlob.resize(transform.localScale.y + .15f);
+        softBlob.resize(transform.localScale.y + .15f);
     }
     private void move()
     {

@@ -38,21 +38,6 @@ public class Blob : MonoBehaviour
     {
         UpdateVertexPositions();
     }
-    /*private class PropagateCollisions : MonoBehaviour
-    {
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.transform.tag == "Sticky")
-                gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-        }
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.transform.tag == "DetachOne")
-                gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-            if (collision.transform.tag == "DetachAll")
-                gameObject.GetComponent<Blob>().TrigThis();
-        }
-    }*/
     void CreateReferencePoints()
     {
         initialLocalPositions = new Vector3[referencePointsCount];
@@ -65,15 +50,11 @@ public class Blob : MonoBehaviour
             referencePoints[i] = new GameObject();
             referencePoints[i].tag = gameObject.tag;
             referencePoints[i].layer = gameObject.layer;
-            //referencePoints[i].AddComponent<PropagateCollisions>();
-            //referencePoints[i].transform.parent = transform;
             referencePoints[i].transform.parent = pointParent;
             Quaternion rotation = Quaternion.AngleAxis(angle * (i - 1), Vector3.back);
-
             Vector3 localPos = rotation * offsetFromCenter;
             referencePoints[i].transform.localPosition = localPos;
-            initialLocalPositions[i] = localPos; // 保存初始位置
-
+            initialLocalPositions[i] = localPos;
             referencePoints[i].transform.localPosition = rotation * offsetFromCenter;
             Rigidbody2D body = referencePoints[i].AddComponent<Rigidbody2D>();
             if (tag == "bullet")
@@ -184,15 +165,6 @@ public class Blob : MonoBehaviour
     private Vector3 LocalPosition(GameObject obj)
     {
         return transform.InverseTransformPoint(obj.transform.position);
-    }
-    public void TrigThis()
-    {
-        int z = 0;
-        foreach (Rigidbody2D child in allReferencePoints)
-        {
-            allReferencePoints[z].constraints = RigidbodyConstraints2D.None;
-            z++;
-        }
     }
     public void resize(float newScale)
     {

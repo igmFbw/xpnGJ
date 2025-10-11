@@ -16,6 +16,8 @@ public class player : MonoBehaviour
     [SerializeField] private softTrigger trigger;
     [SerializeField] private softBullet bulletPrefab;
     [SerializeField] private Blob softBlob;
+    private bool idleAnim;
+    private float idleTimer;
     private int height;
     private int isFaceRight;
     private void Awake()
@@ -24,6 +26,8 @@ public class player : MonoBehaviour
     }
     private void Start()
     {
+        idleAnim = true;
+        idleTimer = 0;
         isFaceRight = 1;
         height = 100;
     }
@@ -36,6 +40,12 @@ public class player : MonoBehaviour
         {
             float newScale = transform.localScale.y + .15f;
             softBlob.resize(newScale);
+        }
+        idleTimer += Time.deltaTime;
+        if(idleTimer >= 1&&idleAnim)
+        {
+            idleTimer = 0;
+            rb.velocity = new Vector2(rb.velocity.x, -20);
         }
     }
     private void OnDestroy()
@@ -73,9 +83,15 @@ public class player : MonoBehaviour
         {
             if (groundDetect() && rb.velocity.y < .1f)
                 speedY = jumpForce;
+            idleAnim = false;
         }
         else if (Input.GetKey(KeyCode.S))
+        {
             speedY = -squatForce;
+            idleAnim = false;
+        }
+        else
+            idleAnim = true;
         rb.velocity = new Vector2(speedX, speedY);
     }
     private void flip(float speedX)

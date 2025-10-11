@@ -1261,6 +1261,22 @@ PrefabInstance:
       value: player
       objectReference: {fileID: 0}
     - target: {fileID: 5795407364750359565, guid: 95840f4f3309dbf45b0c37cf0ed9376b, type: 3}
+      propertyPath: width
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795407364750359565, guid: 95840f4f3309dbf45b0c37cf0ed9376b, type: 3}
+      propertyPath: height
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795407364750359565, guid: 95840f4f3309dbf45b0c37cf0ed9376b, type: 3}
+      propertyPath: springFrequency
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795407364750359565, guid: 95840f4f3309dbf45b0c37cf0ed9376b, type: 3}
+      propertyPath: springDampingRatio
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5795407364750359565, guid: 95840f4f3309dbf45b0c37cf0ed9376b, type: 3}
       propertyPath: collisionLayer.m_Bits
       value: 0
       objectReference: {fileID: 0}

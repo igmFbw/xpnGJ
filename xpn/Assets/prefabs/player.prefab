@@ -93,7 +93,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.34, y: -0.5061, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8099133806235662882}
@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9f475a53b8e4087aad6179ad5ce543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 5
-  height: 5
+  width: 6
+  height: 6
   referencePointsCount: 30
   referencePointRadius: 0.2
   mappingDetail: 7
@@ -178,7 +178,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 67c476972551aa343b016b7651fc7edd, type: 2}
+  - {fileID: 2100000, guid: 9a4113e1ea1b7f54b9fc4eca6e173f79, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -221,11 +221,16 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  leftMaterial: {fileID: 2100000, guid: 7406ff2cb8717cd46ab2aa13db76884c, type: 2}
-  rightMaterial: {fileID: 2100000, guid: 67c476972551aa343b016b7651fc7edd, type: 2}
+  leftMaterial:
+  - {fileID: 2100000, guid: 9b1a1c9ec12c8e347be977f511f5bc90, type: 2}
+  - {fileID: 2100000, guid: e15fcca256c731442a2c446ac1c9b27a, type: 2}
+  rightMaterial:
+  - {fileID: 2100000, guid: 9a4113e1ea1b7f54b9fc4eca6e173f79, type: 2}
+  - {fileID: 2100000, guid: 4ffb76c6c1f574e4da11b89e25ca762d, type: 2}
   mr: {fileID: 3071396190028454661}
   trigger: {fileID: 5293752639399417434}
   bulletPrefab: {fileID: 4223247247318468222, guid: ebfe9525a420e9e4298903ce026037e8, type: 3}
+  softBlob: {fileID: 5795407364750359565}
 --- !u!1 &7192560366327511682
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +259,7 @@ Transform:
   m_GameObject: {fileID: 7192560366327511682}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.064, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -292,8 +297,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00000010064952, y: -0.06091373}
-  m_Size: {x: 0.77424663, y: 0.7835664}
+  m_Offset: {x: -0.008700371, y: -0.08030607}
+  m_Size: {x: 0.889658, y: 0.916416}
   m_Direction: 0
 --- !u!50 &1161139524933507683
 Rigidbody2D:

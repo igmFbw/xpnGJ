@@ -10,8 +10,8 @@ public class player : MonoBehaviour
     [SerializeField] private Vector2 groundDetectDistance;
     [SerializeField] private Transform groundDetectPos;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private Material leftMaterial;
-    [SerializeField] private Material rightMaterial;
+    [SerializeField] private Material[] leftMaterial;
+    [SerializeField] private Material[] rightMaterial;
     [SerializeField] private MeshRenderer mr;
     [SerializeField] private softTrigger trigger;
     [SerializeField] private softBullet bulletPrefab;
@@ -23,6 +23,7 @@ public class player : MonoBehaviour
     private void Awake()
     {
         trigger.sameTriggerEvent += eatBucket;
+        trigger.differentTriggerEvent += changeColor;
     }
     private void Start()
     {
@@ -51,6 +52,7 @@ public class player : MonoBehaviour
     private void OnDestroy()
     {
         trigger.sameTriggerEvent -= eatBucket;
+        trigger.differentTriggerEvent -= changeColor;
     }
     private void attack()
     {
@@ -99,15 +101,14 @@ public class player : MonoBehaviour
         if (speedX > 0 && isFaceRight == -1)
         {
             isFaceRight = -isFaceRight;
-            mr.material = rightMaterial;
+            mr.material = rightMaterial[trigger.isColorBlue];
         }
         else if (speedX < 0 && isFaceRight == 1)
         {
             isFaceRight = -isFaceRight;
-            mr.material = leftMaterial;
+            mr.material = leftMaterial[trigger.isColorBlue];
         }
     }
-
     private bool groundDetect()
     {
         return Physics2D.OverlapBox(groundDetectPos.position, groundDetectDistance, 0, groundLayer);
@@ -116,5 +117,12 @@ public class player : MonoBehaviour
     {
         Gizmos.color = Color.black;
         Gizmos.DrawWireCube(groundDetectPos.position, groundDetectDistance);
+    }
+    private void changeColor()
+    {
+        if(isFaceRight == 1)
+            mr.material = rightMaterial[trigger.isColorBlue];
+        else
+            mr.material = leftMaterial[trigger.isColorBlue];
     }
 }

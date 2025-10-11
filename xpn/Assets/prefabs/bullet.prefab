@@ -152,6 +152,7 @@ MonoBehaviour:
   rb: {fileID: 5418823907325192172}
   trigger: {fileID: 6681485091843191228}
   speed: 160
+  softBody: {fileID: 3716982253497364064}
 --- !u!1 &7619108094537068696
 GameObject:
   m_ObjectHideFlags: 0

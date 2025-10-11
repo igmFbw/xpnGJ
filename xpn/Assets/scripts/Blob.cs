@@ -24,7 +24,7 @@ public class Blob : MonoBehaviour
     private float startScale = 2.5f;
     private Vector3[] initialLocalPositions;
     private Vector3[] virtualReferencePoints;
-    private void Start()
+    private void Awake()
     {
         currentScale = 2.5f;
         CreateReferencePoints();

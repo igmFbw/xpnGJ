@@ -14,7 +14,7 @@ public class softTrigger : MonoBehaviour
         {
             if (newWall.isColorBlue == isColorBlue)
             {
-                newWall.sameCollision();
+                //newWall.sameCollision();
                 sameTriggerEvent?.Invoke(collision.gameObject);
             }
             else

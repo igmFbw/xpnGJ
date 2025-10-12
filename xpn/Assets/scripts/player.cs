@@ -10,6 +10,7 @@ public class player : MonoBehaviour
     [SerializeField] private Vector2 groundDetectDistance;
     [SerializeField] private Transform groundDetectPos;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask wallLayer;
     [SerializeField] private Material[] leftMaterial;
     [SerializeField] private Material[] rightMaterial;
     [SerializeField] private MeshRenderer mr;
@@ -22,7 +23,7 @@ public class player : MonoBehaviour
     private int isFaceRight;
     private void Awake()
     {
-        trigger.sameTriggerEvent += eatBucket;
+        trigger.sameTriggerEvent += sameTrigger;
         trigger.differentTriggerEvent += changeColor;
     }
     private void Start()
@@ -51,7 +52,7 @@ public class player : MonoBehaviour
     }
     private void OnDestroy()
     {
-        trigger.sameTriggerEvent -= eatBucket;
+        trigger.sameTriggerEvent -= sameTrigger;
         trigger.differentTriggerEvent -= changeColor;
     }
     private void attack()
@@ -66,15 +67,18 @@ public class player : MonoBehaviour
         float newScale = transform.localScale.y - .15f;
         softBlob.resize(newScale);
     }
-    public void eatBucket(GameObject go)
+    public void sameTrigger(GameObject go)
     {
-        if (go.tag != "bucket")
-            return;
-        height += 20;
-        if (height > 100)
-            height = 100;
-        Destroy(go);
-        softBlob.resize(transform.localScale.y + .15f);
+        if (go.tag == "bucket")
+        {
+            height += 20;
+            if (height > 100)
+                height = 100;
+            Destroy(go);
+            softBlob.resize(transform.localScale.y + .15f);
+        }
+        else if(go.tag == "wall")
+            go.GetComponent<Collider2D>().isTrigger = true;
     }
     private void move()
     {
@@ -111,7 +115,9 @@ public class player : MonoBehaviour
     }
     private bool groundDetect()
     {
-        return Physics2D.OverlapBox(groundDetectPos.position, groundDetectDistance, 0, groundLayer);
+        bool flag1 = Physics2D.OverlapBox(groundDetectPos.position, groundDetectDistance, 0, groundLayer);
+        bool flag2 = Physics2D.OverlapBox(groundDetectPos.position, groundDetectDistance, 0, wallLayer);
+        return flag1 || flag2;
     }
     private void OnDrawGizmos()
     {

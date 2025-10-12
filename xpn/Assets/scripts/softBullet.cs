@@ -9,20 +9,23 @@ public class softBullet : MonoBehaviour
     [SerializeField] private softTrigger trigger;
     [SerializeField] private float speed;
     [SerializeField] private Blob softBody;
+    [SerializeField] private MeshRenderer mr;
+    [SerializeField] private Material[] materials;
     private int facing;
     private void Awake()
     {
-        trigger.differentTriggerEvent += destroySelf;
-        trigger.sameTriggerEvent += resetVelocity;
+        trigger.differentTriggerEvent += changeColor;
+        trigger.sameTriggerEvent += destroySelf;
+        mr.sortingOrder = -1;
     }
     private void OnDestroy()
     {
-        trigger.differentTriggerEvent -= destroySelf;
-        trigger.sameTriggerEvent -= resetVelocity;
+        trigger.differentTriggerEvent -= changeColor;
+        trigger.sameTriggerEvent -= destroySelf;
     }
-    private void destroySelf()
+    private void destroySelf(GameObject go)
     {
-        Destroy(gameObject, .8f);
+        Destroy(gameObject, .5f);
     }
     private void Start()
     {
@@ -41,9 +44,11 @@ public class softBullet : MonoBehaviour
         trigger.isColorBlue = color;
         this.facing = facing;
         rb.velocity = new Vector2(facing * speed, 0);
+        mr.material = materials[color];
     }
-    public void resetVelocity(GameObject go)
+    private void changeColor()
     {
-        rb.velocity = new Vector2(facing * speed, 0);
+        mr.material = materials[trigger.isColorBlue];
+        Destroy(gameObject, .5f);
     }
 }

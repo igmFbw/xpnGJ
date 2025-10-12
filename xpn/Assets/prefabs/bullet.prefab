@@ -115,7 +115,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 67c476972551aa343b016b7651fc7edd, type: 2}
+  - {fileID: 2100000, guid: f233eb87b98493c459696f38886e2fff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -153,6 +153,10 @@ MonoBehaviour:
   trigger: {fileID: 6681485091843191228}
   speed: 160
   softBody: {fileID: 3716982253497364064}
+  mr: {fileID: 8041528348211895248}
+  materials:
+  - {fileID: 2100000, guid: f233eb87b98493c459696f38886e2fff, type: 2}
+  - {fileID: 2100000, guid: 92049f01e4a26a944b6aa980eb0f2b2f, type: 2}
 --- !u!1 &7619108094537068696
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +216,7 @@ Transform:
   m_GameObject: {fileID: 8366195399302974107}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -250,8 +254,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00000010064952, y: -0.06091373}
-  m_Size: {x: 0.77424663, y: 0.7835664}
+  m_Offset: {x: -0.002984047, y: -0.06091374}
+  m_Size: {x: 0.9353504, y: 0.9353504}
   m_Direction: 0
 --- !u!50 &4392495998642529635
 Rigidbody2D:

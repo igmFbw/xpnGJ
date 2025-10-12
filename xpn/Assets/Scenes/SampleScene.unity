@@ -656,7 +656,7 @@ GameObject:
   - component: {fileID: 1026164154}
   m_Layer: 6
   m_Name: wall
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1189,6 +1189,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 432304325222741142, guid: 95840f4f3309dbf45b0c37cf0ed9376b, type: 3}
+      propertyPath: jumpForce
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 432304325222741142, guid: 95840f4f3309dbf45b0c37cf0ed9376b, type: 3}
+      propertyPath: wallLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 2673113846634911733, guid: 95840f4f3309dbf45b0c37cf0ed9376b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.12
@@ -1256,11 +1264,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7425454186221032901, guid: ebfe9525a420e9e4298903ce026037e8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.37
+      value: -7.09
       objectReference: {fileID: 0}
     - target: {fileID: 7425454186221032901, guid: ebfe9525a420e9e4298903ce026037e8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.27
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 7425454186221032901, guid: ebfe9525a420e9e4298903ce026037e8, type: 3}
       propertyPath: m_LocalPosition.z

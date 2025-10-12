@@ -17,6 +17,7 @@ public class player : MonoBehaviour
     [SerializeField] private softTrigger trigger;
     [SerializeField] private softBullet bulletPrefab;
     [SerializeField] private Blob softBlob;
+    [SerializeField] private dieEffect[] dieEffects;
     private bool idleAnim;
     private float idleTimer;
     private int height;
@@ -130,5 +131,10 @@ public class player : MonoBehaviour
             mr.material = rightMaterial[trigger.isColorBlue];
         else
             mr.material = leftMaterial[trigger.isColorBlue];
+    }
+    public void die()
+    {
+        Instantiate(dieEffects[trigger.isColorBlue],transform.position,Quaternion.identity);
+        Destroy(gameObject);
     }
 }

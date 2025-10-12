@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 7641808633947548699}
   - component: {fileID: 9070264823401204259}
   - component: {fileID: 8232864876215250075}
-  m_Layer: 0
+  - component: {fileID: 1797303957157467968}
+  m_Layer: 6
   m_Name: bucket
   m_TagString: bucket
   m_Icon: {fileID: 0}
@@ -139,3 +140,30 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0, a: 1}
   sr: {fileID: 7641808633947548699}
   wallCollider: {fileID: 9070264823401204259}
+--- !u!50 &1797303957157467968
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2952740385567295757}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 2
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

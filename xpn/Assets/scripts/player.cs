@@ -67,6 +67,7 @@ public class player : MonoBehaviour
         height -= 20;
         float newScale = transform.localScale.y - .15f;
         softBlob.resize(newScale);
+        calculateAttribute();
     }
     public void sameTrigger(GameObject go)
     {
@@ -75,6 +76,7 @@ public class player : MonoBehaviour
             height += 20;
             if (height > 100)
                 height = 100;
+            calculateAttribute();
             Destroy(go);
             softBlob.resize(transform.localScale.y + .15f);
         }
@@ -132,9 +134,24 @@ public class player : MonoBehaviour
         else
             mr.material = leftMaterial[trigger.isColorBlue];
     }
-    public void die()
+    private void die()
     {
         Instantiate(dieEffects[trigger.isColorBlue],transform.position,Quaternion.identity);
         Destroy(gameObject);
+    }
+    public void hurt(int damage)
+    {
+        height -= damage;
+        if (height <= 0)
+        {
+            die();
+            return;
+        }
+        calculateAttribute();
+    }
+    private void calculateAttribute()
+    {
+        float k = height / 2.5f;
+        //jumpForce = 
     }
 }

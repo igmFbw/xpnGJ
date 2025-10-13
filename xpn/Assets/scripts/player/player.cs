@@ -18,10 +18,15 @@ public class player : MonoBehaviour
     [SerializeField] private softBullet bulletPrefab;
     [SerializeField] private Blob softBlob;
     [SerializeField] private dieEffect[] dieEffects;
+    [SerializeField] private playerSoundControl audioControl;
+    [SerializeField] private float attackCool;
     private bool idleAnim;
     private float idleTimer;
     private int height;
     private int isFaceRight;
+    private float cuJumpForce;
+    private float cuSpeed;
+    private float attackTimer;
     private void Awake()
     {
         trigger.sameTriggerEvent += sameTrigger;
@@ -29,14 +34,18 @@ public class player : MonoBehaviour
     }
     private void Start()
     {
+        attackTimer = 0;
         idleAnim = true;
         idleTimer = 0;
         isFaceRight = 1;
         height = 100;
+        cuJumpForce = jumpForce;
+        cuSpeed = speed;
     }
     private void Update()
     {
         move();
+        attackTimer += Time.deltaTime;
         if(Input.GetKeyDown(KeyCode.E))
             attack();
         if(Input.GetKeyDown(KeyCode.J))
@@ -58,6 +67,9 @@ public class player : MonoBehaviour
     }
     private void attack()
     {
+        if (attackTimer < attackCool)
+            return;
+        attackTimer = 0;
         if(height <= 20)
         {
             //return;
@@ -73,9 +85,10 @@ public class player : MonoBehaviour
     {
         if (go.tag == "bucket")
         {
-            height += 20;
+            height += go.GetComponent<softBucket>().bucketNum;
             if (height > 100)
                 height = 100;
+            audioControl.playEatBucketClip();
             calculateAttribute();
             Destroy(go);
             softBlob.resize(transform.localScale.y + .15f);
@@ -152,6 +165,7 @@ public class player : MonoBehaviour
     private void calculateAttribute()
     {
         float k = height / 2.5f;
-        //jumpForce = 
+        cuJumpForce = k * jumpForce;
+        cuSpeed = k * speed;
     }
 }

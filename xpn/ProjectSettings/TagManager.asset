@@ -8,6 +8,8 @@ TagManager:
   - player
   - bucket
   - wall
+  - boss
+  - powerkeg
   layers:
   - Default
   - TransparentFX
@@ -18,8 +20,8 @@ TagManager:
   - wall
   - player
   - bullet
-  - 
-  - 
+  - boss
+  - keg
   - 
   - 
   - 

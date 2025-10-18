@@ -11,6 +11,7 @@ public class player : MonoBehaviour
     [SerializeField] private Transform groundDetectPos;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private LayerMask kegLayer;
     [SerializeField] private Material[] leftMaterial;
     [SerializeField] private Material[] rightMaterial;
     [SerializeField] private MeshRenderer mr;
@@ -72,7 +73,7 @@ public class player : MonoBehaviour
         attackTimer = 0;
         if(height <= 20)
         {
-            //return;
+            return;
         }
         softBullet newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         newBullet.init(trigger.isColorBlue, isFaceRight);
@@ -133,7 +134,8 @@ public class player : MonoBehaviour
     {
         bool flag1 = Physics2D.OverlapBox(groundDetectPos.position, groundDetectDistance, 0, groundLayer);
         bool flag2 = Physics2D.OverlapBox(groundDetectPos.position, groundDetectDistance, 0, wallLayer);
-        return flag1 || flag2;
+        bool flag3 = Physics2D.OverlapBox(groundDetectPos.position, groundDetectDistance, 0, kegLayer);
+        return flag1 || flag2 || flag3;
     }
     private void OnDrawGizmos()
     {

@@ -965,6 +965,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 374684614}
+  boss: {fileID: 1147011233}
 --- !u!4 &889940470
 Transform:
   m_ObjectHideFlags: 0
@@ -1008,7 +1009,7 @@ Transform:
   m_GameObject: {fileID: 1024079487}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.02, y: -0.11, z: 0}
+  m_LocalPosition: {x: 1.98, y: -0.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1029,6 +1030,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 1024079490}
   color: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  kegLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  handAttackDistance: 1.02
+  lr: {fileID: 0}
+  rayMaterial: {fileID: 0}
   attackPos: {fileID: 1286376134}
 --- !u!95 &1024079490
 Animator:
@@ -1559,6 +1569,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 1120329640}
   color: 1
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  kegLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  handAttackDistance: 1.02
+  lr: {fileID: 0}
+  rayMaterial: {fileID: 0}
   attackPos: {fileID: 208658207}
 --- !u!95 &1120329640
 Animator:
@@ -1669,12 +1688,6 @@ MonoBehaviour:
   - {fileID: 1024079489}
   - {fileID: 1120329639}
   handAttackDistance: 1.02
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  kegLayer:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!95 &1147011234
 Animator:
   serializedVersion: 5
@@ -2128,6 +2141,10 @@ PrefabInstance:
     - target: {fileID: 432304325222741142, guid: 95840f4f3309dbf45b0c37cf0ed9376b, type: 3}
       propertyPath: attackCool
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 432304325222741142, guid: 95840f4f3309dbf45b0c37cf0ed9376b, type: 3}
+      propertyPath: kegLayer.m_Bits
+      value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 2673113846634911733, guid: 95840f4f3309dbf45b0c37cf0ed9376b, type: 3}
       propertyPath: m_LocalPosition.x

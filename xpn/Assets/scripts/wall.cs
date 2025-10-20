@@ -7,6 +7,7 @@ public class wall : MonoBehaviour
     [SerializeField] private List<Sprite> colorList;
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Collider2D wallCollider;
+    [SerializeField] private Rigidbody2D rb;
     private void Start()
     {
         sr.sprite = colorList[isColorBlue];
@@ -19,9 +20,13 @@ public class wall : MonoBehaviour
     public void sameCollision()
     {
         wallCollider.isTrigger = true;
+        if(rb != null)     
+            rb.gravityScale = 0;
     }
     public void collisionExit()
     {
         wallCollider.isTrigger = false;
+        if (rb != null)
+            rb.gravityScale = 1;
     }
 }

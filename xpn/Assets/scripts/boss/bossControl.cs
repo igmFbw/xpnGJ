@@ -15,7 +15,7 @@ public class bossControl : MonoBehaviour
     {
         attackTimer = 0;
         health = 100;
-        attackCool = Random.Range(4f, 8f);
+        attackCool = Random.Range(5f, 8f);
         state = 1;
     }
     private void OnDrawGizmos()
@@ -28,6 +28,10 @@ public class bossControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             attack1();
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            attack2();
         }
         attack();
     }

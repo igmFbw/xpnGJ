@@ -11,7 +11,17 @@ public class bossHand : MonoBehaviour
     [SerializeField] private float handAttackDistance;
     [SerializeField] private LineRenderer lr;
     [SerializeField] private Material rayMaterial;
+    [SerializeField] private Transform rayPos;
+    [SerializeField] private bossRayDetect rayDetectPos;
     public Transform attackPos;
+    private void Awake()
+    {
+        rayDetectPos.rayDetectAction += rayDetect;
+    }
+    private void OnDestroy()
+    {
+        rayDetectPos.rayDetectAction -= rayDetect;
+    }
     public void attack()
     {
         anim.SetBool("isAttack", true);
@@ -43,10 +53,47 @@ public class bossHand : MonoBehaviour
             gloablManager.instance.player.hurt(100);
         Collider2D kegCo = Physics2D.OverlapCircle(attackPos.position, handAttackDistance, kegLayer);
         if (kegCo != null)
-            gloablManager.instance.boss.hurt(10);
+            if(kegCo.GetComponent<wall>().isColorBlue != color)
+                gloablManager.instance.boss.hurt(10);
     }
     public void rayKey()
     {
+        lr.positionCount = 2;
+        lr.SetPosition(0,rayPos.position);
+        rayDetectPos.gameObject.SetActive(true);
+    }
+    public void clearRayPoint()
+    {
+        lr.positionCount = 0;
+        rayDetectPos.gameObject.SetActive(false);
+    }
+    public void rayDetect()
+    {
+        Vector2 dir = rayDetectPos.transform.position - rayPos.position.normalized;
+        var go = Physics2D.RaycastAll(rayPos.position, dir, Mathf.Infinity);
+        if (go == null)
+        {
+            lr.SetPosition(1, rayDetectPos.transform.position);
+            return;
+        }
+        System.Array.Sort(go, (a, b) => a.distance.CompareTo(b.distance));
+        int n = go.Length;
+        for (int i = 0; i < n; i++)
+        {
+            if (go[i].transform.tag != "wall")
+            {
+                if (go[i].transform.tag == "powerkeg")
+                {
 
+                }
+                lr.SetPosition(1, go[i].point);
+                break;
+            }
+            if (go[i].transform.GetComponent<wall>().isColorBlue != color)
+            {
+                lr.SetPosition(1, go[i].point);
+                break;
+            }
+        }
     }
 }

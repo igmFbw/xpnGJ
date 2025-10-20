@@ -28,9 +28,9 @@ public class enemyControl : MonoBehaviour
         else if (transform.position.x <= leftPos.x && facing == -1)
             flip();
         if(!detectPlayer())
-            rb.velocity = new Vector2(speed * facing, 0);
+            rb.velocity = new Vector2(speed * facing, rb.velocity.y);
         else
-            rb.velocity = new Vector2(followSpeed * facing, 0);
+            rb.velocity = new Vector2(followSpeed * facing, rb.velocity.y);
 
     }
     private void OnDrawGizmos()

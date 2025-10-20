@@ -11,6 +11,16 @@ public class bossControl : MonoBehaviour
     private int health;
     private int state;
     private int currentHand;
+    private void Awake()
+    {
+        hand[0].hurtAction += hurt;
+        hand[1].hurtAction += hurt;
+    }
+    private void OnDestroy()
+    {
+        hand[0].hurtAction -= hurt;
+        hand[1].hurtAction -= hurt;
+    }
     private void Start()
     {
         attackTimer = 0;

@@ -9,8 +9,8 @@ public class bossRayDetect : MonoBehaviour
     [SerializeField] private int facing;
     private void OnEnable()
     {
-        transform.position = new Vector2(Camera.main.transform.position.x + (facing * 8.9f), transform.position.y);
-        transform.DOMoveX(Camera.main.transform.position.x - (facing * 8.9f), .5f);
+        transform.position = new Vector2(Camera.main.transform.position.x + (facing * 12f), transform.position.y);
+        transform.DOMoveX(Camera.main.transform.position.x - (facing * 12f), .5f);
     }
     private void Update()
     {

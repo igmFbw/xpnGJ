@@ -13,6 +13,8 @@ public class bossHand : MonoBehaviour
     [SerializeField] private Material rayMaterial;
     [SerializeField] private Transform rayPos;
     [SerializeField] private bossRayDetect rayDetectPos;
+    [SerializeField] private GameObject explosionEffect;
+    public Action<int> hurtAction;
     public Transform attackPos;
     private void Awake()
     {
@@ -69,7 +71,7 @@ public class bossHand : MonoBehaviour
     }
     public void rayDetect()
     {
-        Vector2 dir = rayDetectPos.transform.position - rayPos.position.normalized;
+        Vector2 dir = (rayDetectPos.transform.position - rayPos.position).normalized;
         var go = Physics2D.RaycastAll(rayPos.position, dir, Mathf.Infinity);
         if (go == null)
         {
@@ -84,7 +86,9 @@ public class bossHand : MonoBehaviour
             {
                 if (go[i].transform.tag == "powerkeg")
                 {
-
+                    hurtAction?.Invoke(10);
+                    GameObject newEffect = Instantiate(explosionEffect, go[i].transform.position, Quaternion.identity);
+                    Destroy(newEffect,.8f);
                 }
                 lr.SetPosition(1, go[i].point);
                 break;

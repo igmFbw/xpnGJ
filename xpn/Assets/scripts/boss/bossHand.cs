@@ -86,9 +86,12 @@ public class bossHand : MonoBehaviour
             {
                 if (go[i].transform.tag == "powerkeg")
                 {
-                    hurtAction?.Invoke(10);
-                    GameObject newEffect = Instantiate(explosionEffect, go[i].transform.position, Quaternion.identity);
-                    Destroy(newEffect,.8f);
+                    if (go[i].transform.GetComponent<wall>().isColorBlue != color)
+                    {
+                        hurtAction?.Invoke(10);
+                        GameObject newEffect = Instantiate(explosionEffect, go[i].transform.position, Quaternion.identity);
+                        Destroy(newEffect, .8f);
+                    }
                 }
                 lr.SetPosition(1, go[i].point);
                 break;

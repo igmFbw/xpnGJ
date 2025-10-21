@@ -106,6 +106,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dc4e18d29600e2b469a192db8465bb01, type: 3}
   sr: {fileID: 7582962588450481594}
   wallCollider: {fileID: 6249940383309255551}
+  rb: {fileID: 0}
 --- !u!50 &6228529849039160996
 Rigidbody2D:
   serializedVersion: 4

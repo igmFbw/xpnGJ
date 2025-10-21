@@ -28,6 +28,7 @@ public class player : MonoBehaviour
     private float cuJumpForce;
     private float cuSpeed;
     private float attackTimer;
+    private bool isInvincible;
     private void Awake()
     {
         trigger.sameTriggerEvent += sameTrigger;
@@ -42,6 +43,7 @@ public class player : MonoBehaviour
         height = 100;
         cuJumpForce = jumpForce;
         cuSpeed = speed;
+        isInvincible = false;
     }
     private void Update()
     {
@@ -49,6 +51,8 @@ public class player : MonoBehaviour
         attackTimer += Time.deltaTime;
         if(Input.GetKeyDown(KeyCode.E))
             attack();
+        if (Input.GetKeyDown(KeyCode.T))
+            hurt(20);
         if(Input.GetKeyDown(KeyCode.J))
         {
             float newScale = transform.localScale.y + .15f;
@@ -99,13 +103,13 @@ public class player : MonoBehaviour
     }
     private void move()
     {
-        float speedX = Input.GetAxisRaw("Horizontal") * speed;
+        float speedX = Input.GetAxisRaw("Horizontal") * cuSpeed;
         flip(speedX);
         float speedY = rb.velocity.y;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (groundDetect() && rb.velocity.y < .1f)
-                speedY = jumpForce;
+                speedY = cuJumpForce;
             idleAnim = false;
         }
         else if (Input.GetKey(KeyCode.S))
@@ -156,18 +160,36 @@ public class player : MonoBehaviour
     }
     public void hurt(int damage)
     {
+        if (isInvincible)
+            return;
+        StartCoroutine(invincibleAction());
+        rb.velocity = new Vector2(rb.velocity.x, -300);
         height -= damage;
+        float newScale = transform.localScale.y - .15f;
         if (height <= 0)
         {
             die();
             return;
         }
+        else
+            StartCoroutine(hurtAction(newScale));
         calculateAttribute();
     }
     private void calculateAttribute()
     {
-        float k = height / 2.5f;
-        cuJumpForce = k * jumpForce;
-        cuSpeed = k * speed;
+        float k = 2.5f / transform.localScale.x;
+        cuJumpForce = jumpForce * k;
+        cuSpeed = speed * k;
+    }
+    private IEnumerator hurtAction(float newScale)
+    {
+        yield return new WaitForSeconds(.2f);
+        softBlob.resize(newScale);
+    }
+    private IEnumerator invincibleAction()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(.5f);
+        isInvincible = false;
     }
 }

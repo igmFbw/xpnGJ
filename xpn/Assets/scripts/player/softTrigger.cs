@@ -7,6 +7,11 @@ public class softTrigger : MonoBehaviour
     public int isColorBlue = 0;
     public Action differentTriggerEvent;
     public Action<GameObject> sameTriggerEvent;
+    private bool canTrig;
+    private void Start()
+    {
+        canTrig = true;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         wall newWall;
@@ -15,6 +20,9 @@ public class softTrigger : MonoBehaviour
             if (newWall.isColorBlue == isColorBlue)
             {
                 //newWall.sameCollision();
+                if (!canTrig)
+                return;
+                StartCoroutine(recoverTrigger());
                 if(tag == "player")
                     newWall.sameCollision();
                 sameTriggerEvent?.Invoke(collision.gameObject);
@@ -32,5 +40,11 @@ public class softTrigger : MonoBehaviour
         wall newWall;
         if (collision.TryGetComponent<wall>(out newWall))
             newWall.collisionExit();
+    }
+    private IEnumerator recoverTrigger()
+    {
+        canTrig = false;
+        yield return new WaitForSeconds(.5f);
+        canTrig = true;
     }
 }

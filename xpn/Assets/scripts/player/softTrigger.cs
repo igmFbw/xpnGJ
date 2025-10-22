@@ -25,15 +25,15 @@ public class softTrigger : MonoBehaviour
             if (newWall.isColorBlue == isColorBlue)
             {
                 //newWall.sameCollision();
-                if (!canTrig)
-                return;
-                StartCoroutine(recoverTrigger());
                 if(tag == "player")
                     newWall.sameCollision();
                 sameTriggerEvent?.Invoke(collision.gameObject);
             }
             else
             {
+                if (!canTrig)
+                    return;
+                StartCoroutine(recoverTrigger());
                 isColorBlue = (isColorBlue + 1) % 2;
                 newWall.differentCollision();
                 differentTriggerEvent?.Invoke();

@@ -239,4 +239,11 @@ public class Blob : MonoBehaviour
         mesh.vertices = vertices;
         mesh.RecalculateBounds();
     }
+    public void recoverVelocity()
+    {
+        foreach (var r in allReferencePoints)
+        {
+            r.velocity = new Vector2(0,r.velocity.y);
+        }
+    }
 }

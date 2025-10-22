@@ -62,7 +62,7 @@ public class player : MonoBehaviour
         if(idleTimer >= 1&&idleAnim)
         {
             idleTimer = 0;
-            rb.velocity = new Vector2(rb.velocity.x, -20);
+            rb.velocity = new Vector2(rb.velocity.x, -40);
         }
     }
     private void OnDestroy()
@@ -104,16 +104,22 @@ public class player : MonoBehaviour
     private void move()
     {
         float speedX = Input.GetAxisRaw("Horizontal") * cuSpeed;
+        if(speedX == 0)
+            StartCoroutine(recoverVelocity());
         flip(speedX);
         float speedY = rb.velocity.y;
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (groundDetect() && rb.velocity.y < .1f)
+            if (groundDetect() && rb.velocity.y < .2f)
+            {
                 speedY = cuJumpForce;
+                audioControl.playJumpClip();
+            }
             idleAnim = false;
         }
         else if (Input.GetKey(KeyCode.S))
         {
+            audioControl.playSquatClip();
             speedY = -squatForce;
             idleAnim = false;
         }
@@ -166,6 +172,7 @@ public class player : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, -300);
         height -= damage;
         float newScale = transform.localScale.y - .15f;
+        audioControl.playHurtClip();
         if (height <= 0)
         {
             die();
@@ -191,5 +198,10 @@ public class player : MonoBehaviour
         isInvincible = true;
         yield return new WaitForSeconds(.5f);
         isInvincible = false;
+    }
+    private IEnumerator recoverVelocity()
+    {
+        yield return new WaitForSeconds(.2f);
+        softBlob.recoverVelocity();
     }
 }

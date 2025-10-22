@@ -3853,6 +3853,18 @@ PrefabInstance:
       propertyPath: height
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8422078679370463324, guid: 95840f4f3309dbf45b0c37cf0ed9376b, type: 3}
+      propertyPath: hurtClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c2eae655a364bcb4493e575fe9f3b7c0, type: 3}
+    - target: {fileID: 8422078679370463324, guid: 95840f4f3309dbf45b0c37cf0ed9376b, type: 3}
+      propertyPath: jumpClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7cae16e5eedb0a44d98783b6efb16f43, type: 3}
+    - target: {fileID: 8422078679370463324, guid: 95840f4f3309dbf45b0c37cf0ed9376b, type: 3}
+      propertyPath: squatClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 736b56eca4bda9c449116479da02c40b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

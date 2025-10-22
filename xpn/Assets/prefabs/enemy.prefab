@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 7119757541297795550}
   m_Layer: 0
   m_Name: enemy
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 620f1bb79d45a624d9e4e42ed016535a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  col: {fileID: 2056524426824658216}
   rb: {fileID: 5699532141730850977}
   leftPoint: {fileID: 517690680271506836}
   rightPoint: {fileID: 3348052437652103683}
@@ -216,6 +217,12 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
+  color: 0
+  sr: {fileID: 6699850017451169422}
+  anim: {fileID: 7119757541297795550}
+  colorList:
+  - {r: 0, g: 0.94509804, b: 1, a: 1}
+  - {r: 1, g: 0.40392157, b: 0.40392157, a: 1}
 --- !u!95 &7119757541297795550
 Animator:
   serializedVersion: 5

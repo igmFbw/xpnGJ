@@ -14,6 +14,9 @@ public class bossHand : MonoBehaviour
     [SerializeField] private Transform rayPos;
     [SerializeField] private bossRayDetect rayDetectPos;
     [SerializeField] private GameObject explosionEffect;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip hitClip;
+    [SerializeField] private AudioClip rayClip;
     public Action<int> hurtAction;
     public Transform attackPos;
     private void Awake()
@@ -50,6 +53,10 @@ public class bossHand : MonoBehaviour
     }
     public void attackKey()
     {
+        audioSource.clip = hitClip;
+        audioSource.Play();
+        if (gloablManager.instance.player.trigger.isColorBlue == color)
+            return;
         Collider2D playerCo = Physics2D.OverlapCircle(attackPos.position, handAttackDistance, playerLayer);
         if (playerCo != null)
             gloablManager.instance.player.hurt(100);
@@ -63,6 +70,8 @@ public class bossHand : MonoBehaviour
         lr.positionCount = 2;
         lr.SetPosition(0,rayPos.position);
         rayDetectPos.gameObject.SetActive(true);
+        audioSource.clip = rayClip;
+        audioSource.Play();
     }
     public void clearRayPoint()
     {
@@ -93,6 +102,9 @@ public class bossHand : MonoBehaviour
                         Destroy(newEffect, .8f);
                     }
                 }
+                if (go[i].transform.tag == "player")
+                    if (gloablManager.instance.player.trigger.isColorBlue!=color)
+                        gloablManager.instance.player.hurt(20);
                 lr.SetPosition(1, go[i].point);
                 break;
             }

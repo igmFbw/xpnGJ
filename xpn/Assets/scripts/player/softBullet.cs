@@ -25,6 +25,7 @@ public class softBullet : MonoBehaviour
     }
     private void destroySelf(GameObject go)
     {
+        //rb.velocity = new Vector2(facing * speed, 0);
         Destroy(gameObject, .5f);
     }
     private void Start()

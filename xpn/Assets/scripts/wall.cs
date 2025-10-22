@@ -20,13 +20,15 @@ public class wall : MonoBehaviour
     public void sameCollision()
     {
         wallCollider.isTrigger = true;
-        if(rb != null)     
-            rb.gravityScale = 0;
+        if (rb != null)
+            rb.bodyType = RigidbodyType2D.Static;
+            //rb.gravityScale = 0;
     }
     public void collisionExit()
     {
         wallCollider.isTrigger = false;
         if (rb != null)
-            rb.gravityScale = 1;
+            //rb.gravityScale = 1;
+            rb.bodyType = RigidbodyType2D.Dynamic;
     }
 }

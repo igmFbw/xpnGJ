@@ -5,6 +5,7 @@ using UnityEngine;
 public class enemyControl : MonoBehaviour
 {
     private int facing;
+    [SerializeField] private Collider2D col;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform leftPoint;
     [SerializeField] private Transform rightPoint;
@@ -13,11 +14,16 @@ public class enemyControl : MonoBehaviour
     [SerializeField] private Transform detectPos;
     [SerializeField] private Vector2 detectDistance;
     [SerializeField] private LayerMask playerLayer;
+    public int color;
+    [SerializeField] private SpriteRenderer sr;
+    [SerializeField] private Animator anim;
+    [SerializeField] private List<Color> colorList;
     private Vector3 leftPos;
     private Vector3 rightPos;
     private void Start()
     {
         facing = 1;
+        sr.color = colorList[color];
         leftPos = leftPoint.position;
         rightPos = rightPoint.position;
     }
@@ -29,9 +35,13 @@ public class enemyControl : MonoBehaviour
             flip();
         if(!detectPlayer())
             rb.velocity = new Vector2(speed * facing, rb.velocity.y);
-        else
+        else if(detectPlayer()&&gloablManager.instance.player.trigger.isColorBlue != color)
             rb.velocity = new Vector2(followSpeed * facing, rb.velocity.y);
-
+    }
+    public void die()
+    {
+        Destroy(gameObject,.5f);
+        anim.SetBool("isDie", true);
     }
     private void OnDrawGizmos()
     {
@@ -46,5 +56,15 @@ public class enemyControl : MonoBehaviour
     private bool detectPlayer()
     {
         return Physics2D.OverlapBox(detectPos.position, detectDistance, 0, playerLayer);
+    }
+    public void sameTrigger()
+    {
+        rb.gravityScale = 0;
+        col.isTrigger = true;
+    }
+    public void recoverRb()
+    {
+        rb.gravityScale = 1;
+        col.isTrigger = false;
     }
 }

@@ -15,7 +15,7 @@ public class player : MonoBehaviour
     [SerializeField] private Material[] leftMaterial;
     [SerializeField] private Material[] rightMaterial;
     [SerializeField] private MeshRenderer mr;
-    [SerializeField] private softTrigger trigger;
+    public softTrigger trigger;
     [SerializeField] private softBullet bulletPrefab;
     [SerializeField] private Blob softBlob;
     [SerializeField] private dieEffect[] dieEffects;

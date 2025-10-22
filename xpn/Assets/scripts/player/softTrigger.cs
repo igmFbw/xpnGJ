@@ -24,7 +24,6 @@ public class softTrigger : MonoBehaviour
         {
             if (newWall.isColorBlue == isColorBlue)
             {
-                //newWall.sameCollision();
                 if(tag == "player")
                     newWall.sameCollision();
                 sameTriggerEvent?.Invoke(collision.gameObject);
@@ -39,12 +38,33 @@ public class softTrigger : MonoBehaviour
                 differentTriggerEvent?.Invoke();
             }
         }
+        else if(collision.tag == "enemy")
+        {
+            enemyControl enemy = collision.GetComponent<enemyControl>();
+            if(isColorBlue == enemy.color)
+            {
+                if (tag == "player")
+                {
+                    enemy.sameTrigger();
+                    sameTriggerEvent?.Invoke(collision.gameObject);
+                }
+                //enemy.sameTrigger();
+                //sameTriggerEvent?.Invoke(collision.gameObject);
+            }
+            else if(gameObject.tag == "bullet")
+                enemy.die();
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         wall newWall;
         if (collision.TryGetComponent<wall>(out newWall))
             newWall.collisionExit();
+        else if (collision.tag == "enemy")
+        {
+            enemyControl enemy = collision.GetComponent<enemyControl>();
+            enemy.recoverRb();
+        }
     }
     private IEnumerator recoverTrigger()
     {

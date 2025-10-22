@@ -79,6 +79,7 @@ public class player : MonoBehaviour
         {
             return;
         }
+        audioControl.playSquatClip();
         softBullet newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         newBullet.init(trigger.isColorBlue, isFaceRight);
         height -= 20;
@@ -112,14 +113,15 @@ public class player : MonoBehaviour
         {
             if (groundDetect() && rb.velocity.y < .2f)
             {
-                speedY = cuJumpForce;
                 audioControl.playJumpClip();
+                speedY = cuJumpForce;
             }
             idleAnim = false;
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            audioControl.playSquatClip();
+            //if(!audioControl.auSource.isPlaying)
+            //audioControl.playSquatClip();
             speedY = -squatForce;
             idleAnim = false;
         }

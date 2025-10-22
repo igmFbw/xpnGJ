@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class playerSoundControl : MonoBehaviour
 {
-    [SerializeField] private AudioSource auSource;
+    public AudioSource auSource;
     [SerializeField] private AudioClip eatBucketClip;
     [SerializeField] private AudioClip hurtClip;
     [SerializeField] private AudioClip jumpClip;

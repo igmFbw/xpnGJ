@@ -3362,6 +3362,11 @@ MonoBehaviour:
   - {fileID: 1024079489}
   - {fileID: 1120329639}
   handAttackDistance: 1.02
+  finaCg: {fileID: 1240233998}
+  finaImage: {fileID: 1240233996}
+  finaColor:
+  - {r: 0, g: 1, b: 1, a: 0.2}
+  - {r: 1, g: 0, b: 0, a: 0.2}
 --- !u!95 &1147011234
 Animator:
   serializedVersion: 5
@@ -3598,6 +3603,7 @@ GameObject:
   - component: {fileID: 1240233995}
   - component: {fileID: 1240233997}
   - component: {fileID: 1240233996}
+  - component: {fileID: 1240233998}
   m_Layer: 5
   m_Name: bossImage
   m_TagString: Untagged
@@ -3662,6 +3668,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1240233994}
   m_CullTransparentMesh: 1
+--- !u!225 &1240233998
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240233994}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1255143360
 GameObject:
   m_ObjectHideFlags: 0

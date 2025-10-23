@@ -151,7 +151,6 @@ public class bossControl : MonoBehaviour
             finaImage.DOColor(finaColor[finaIndex], 1.5f);
             hurt(2);
             yield return new WaitForSeconds(2.5f);
-            //yield return new WaitForSeconds(1);
             if (gloablManager.instance.player.trigger.isColorBlue != finaIndex)
                 gloablManager.instance.player.hurt(100);
             finaIndex = (finaIndex + 1) % 2;

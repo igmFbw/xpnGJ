@@ -33,10 +33,10 @@ public class enemyControl : MonoBehaviour
             flip();
         else if (transform.position.x <= leftPos.x && facing == -1)
             flip();
-        if(!detectPlayer())
-            rb.velocity = new Vector2(speed * facing, rb.velocity.y);
-        else if(detectPlayer()&&gloablManager.instance.player.trigger.isColorBlue != color)
+        if(detectPlayer()&&gloablManager.instance.player.trigger.isColorBlue != color)
             rb.velocity = new Vector2(followSpeed * facing, rb.velocity.y);
+        else
+            rb.velocity = new Vector2(speed * facing, rb.velocity.y);
     }
     public void die()
     {

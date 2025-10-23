@@ -1,16 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using UnityEngine.UI;
 public class bossControl : MonoBehaviour
 {
     [SerializeField] private Animator bodyAnim;
     [SerializeField] private bossHand[] hand;
     [SerializeField] private float handAttackDistance;
+    [SerializeField] private CanvasGroup finaCg;
+    [SerializeField] private Image finaImage;
+    [SerializeField] private List<Color> finaColor;
     private float attackTimer;
     private float attackCool;
     private int health;
     private int state;
     private int currentHand;
+    private bool isFina;
+    private int finaIndex;
     private void Awake()
     {
         hand[0].hurtAction += hurt;
@@ -27,6 +34,8 @@ public class bossControl : MonoBehaviour
         health = 100;
         attackCool = Random.Range(5f, 8f);
         state = 1;
+        isFina = false;
+        finaIndex = 0;
     }
     private void OnDrawGizmos()
     {
@@ -43,7 +52,21 @@ public class bossControl : MonoBehaviour
         {
             attack2();
         }
-        attack();
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            state = 3;
+        }
+        if(state != 3)
+            attack();
+        else
+        {
+            if (isFina)
+                return;
+            StartCoroutine(attack3());
+            finaCg.gameObject.SetActive(true);
+            finaCg.DOFade(1, 1);
+            isFina = true;
+        }
     }
     public void hurt(int damage)
     {
@@ -51,7 +74,12 @@ public class bossControl : MonoBehaviour
         if (health <= 60)
             state = 2;
         else if (health <= 20)
+        {
+            attackTimer = 1.5f;
             state = 3;
+            finaCg.gameObject.SetActive(true);
+            finaCg.DOFade(1, 1);
+        }
         else if (health <= 0)
             die();
     }
@@ -81,9 +109,6 @@ public class bossControl : MonoBehaviour
                     else
                         attack2();
                     attackCool = Random.Range(4f, 8f);
-                    break;
-                case 3:
-                    attack3();
                     break;
             }
             attackTimer = 0;
@@ -118,9 +143,19 @@ public class bossControl : MonoBehaviour
             hand[1].rayAttack();
         }
     }
-    private void attack3()
+    private IEnumerator attack3()
     {
-
+        yield return new WaitForSeconds(1);
+        while(true)
+        {
+            finaImage.DOColor(finaColor[finaIndex], 1.5f);
+            hurt(2);
+            yield return new WaitForSeconds(2.5f);
+            //yield return new WaitForSeconds(1);
+            if (gloablManager.instance.player.trigger.isColorBlue != finaIndex)
+                gloablManager.instance.player.hurt(100);
+            finaIndex = (finaIndex + 1) % 2;
+        }
     }
     public void attackEnd()
     {

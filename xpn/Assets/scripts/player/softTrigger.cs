@@ -14,11 +14,6 @@ public class softTrigger : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(tag == "player" && collision.tag == "thorn")
-        {
-            gloablManager.instance.player.hurt(100);
-            return;
-        }
         wall newWall;
         if (collision.TryGetComponent<wall>(out newWall))
         {

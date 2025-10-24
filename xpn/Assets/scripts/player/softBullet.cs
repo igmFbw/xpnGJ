@@ -11,7 +11,6 @@ public class softBullet : MonoBehaviour
     [SerializeField] private Blob softBody;
     [SerializeField] private MeshRenderer mr;
     [SerializeField] private Material[] materials;
-    private int facing;
     private void Awake()
     {
         trigger.differentTriggerEvent += changeColor;
@@ -32,19 +31,18 @@ public class softBullet : MonoBehaviour
     {
         Destroy(gameObject, 3);
     }
-    public void init(int color,int facing)
+    public void init(int color,Vector3 facing)
     {
         StartCoroutine(fire(color,facing));
         /*trigger.isColorBlue = color;
         this.facing = facing;
         rb.velocity = new Vector2(facing * speed, 0);*/
     }
-    private IEnumerator fire(int color, int facing)
+    private IEnumerator fire(int color, Vector3 facing)
     {
         yield return new WaitForSeconds(.1f);
         trigger.isColorBlue = color;
-        this.facing = facing;
-        rb.velocity = new Vector2(facing * speed, 0);
+        rb.velocity = facing * speed;
         mr.material = materials[color];
     }
     private void changeColor()

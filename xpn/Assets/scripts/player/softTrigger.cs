@@ -64,7 +64,7 @@ public class softTrigger : MonoBehaviour
     private IEnumerator recoverTrigger()
     {
         canTrig = false;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         canTrig = true;
     }
 }

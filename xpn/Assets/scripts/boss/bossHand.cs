@@ -62,8 +62,15 @@ public class bossHand : MonoBehaviour
             gloablManager.instance.player.hurt(100);
         Collider2D kegCo = Physics2D.OverlapCircle(attackPos.position, handAttackDistance, kegLayer);
         if (kegCo != null)
-            if(kegCo.GetComponent<wall>().isColorBlue != color)
+        {
+            if (kegCo.GetComponent<wall>().isColorBlue != color)
+            {
                 gloablManager.instance.boss.hurt(10);
+                Destroy(kegCo.transform.gameObject);
+                GameObject newEffect = Instantiate(explosionEffect, kegCo.transform.position, Quaternion.identity);
+                Destroy(newEffect, .2f);
+            }
+        }
     }
     public void rayKey()
     {
@@ -98,8 +105,9 @@ public class bossHand : MonoBehaviour
                     if (go[i].transform.GetComponent<wall>().isColorBlue != color)
                     {
                         hurtAction?.Invoke(10);
+                        Destroy(go[i].transform.gameObject);
                         GameObject newEffect = Instantiate(explosionEffect, go[i].transform.position, Quaternion.identity);
-                        Destroy(newEffect, .8f);
+                        Destroy(newEffect, .2f);
                     }
                 }
                 if (go[i].transform.tag == "player")

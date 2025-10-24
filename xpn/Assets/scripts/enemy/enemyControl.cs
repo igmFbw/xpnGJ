@@ -67,4 +67,21 @@ public class enemyControl : MonoBehaviour
         rb.gravityScale = 1;
         col.isTrigger = false;
     }
+    public void changeColor()
+    {
+        color = (color + 1) % 2;
+        sr.color = colorList[color];
+    }
+    public void playAttack()
+    {
+        anim.SetBool("isAttack", true);
+    }
+    public void attack()
+    {
+
+    }
+    public void attackEnd()
+    {
+        anim.SetBool("isAttack", false);
+    }
 }

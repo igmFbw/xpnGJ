@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 public class player : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
@@ -49,10 +50,8 @@ public class player : MonoBehaviour
     {
         move();
         attackTimer += Time.deltaTime;
-        if(Input.GetKeyDown(KeyCode.E))
+        if(Input.GetMouseButtonUp(0)&&!EventSystem.current.IsPointerOverGameObject())
             attack();
-        if (Input.GetKeyDown(KeyCode.T))
-            hurt(20);
         if(Input.GetKeyDown(KeyCode.J))
         {
             float newScale = transform.localScale.y + .15f;
@@ -74,6 +73,9 @@ public class player : MonoBehaviour
     {
         if (attackTimer < attackCool)
             return;
+        Vector3 mouseScreenPosition = Input.mousePosition;
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+        Vector3 shootDir = (mouseWorldPosition - transform.position).normalized;
         attackTimer = 0;
         if(height <= 20)
         {
@@ -81,7 +83,7 @@ public class player : MonoBehaviour
         }
         audioControl.playSquatClip();
         softBullet newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        newBullet.init(trigger.isColorBlue, isFaceRight);
+        newBullet.init(trigger.isColorBlue, shootDir);
         height -= 20;
         float newScale = transform.localScale.y - .15f;
         softBlob.resize(newScale);
@@ -154,7 +156,7 @@ public class player : MonoBehaviour
         Gizmos.color = Color.black;
         Gizmos.DrawWireCube(groundDetectPos.position, groundDetectDistance);
     }
-    private void changeColor()
+    public void changeColor()
     {
         if(isFaceRight == 1)
             mr.material = rightMaterial[trigger.isColorBlue];

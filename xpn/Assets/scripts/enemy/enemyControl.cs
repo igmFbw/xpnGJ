@@ -24,9 +24,11 @@ public class enemyControl : MonoBehaviour
     private float attackTimer;
     private Vector3 leftPos;
     private Vector3 rightPos;
+    private bool isAttack;
     private void Start()
     {
         facing = 1;
+        isAttack = false;
         sr.color = colorList[color];
         leftPos = leftPoint.position;
         rightPos = rightPoint.position;
@@ -35,16 +37,20 @@ public class enemyControl : MonoBehaviour
     }
     private void Update()
     {
-        if (transform.position.x >= rightPos.x && facing == 1)
-            flip();
-        else if (transform.position.x <= leftPos.x && facing == -1)
-            flip();
-        if(detectPlayer()&&gloablManager.instance.player.trigger.isColorBlue != color)
-            rb.velocity = new Vector2(followSpeed * facing, rb.velocity.y);
-        else
-            rb.velocity = new Vector2(speed * facing, rb.velocity.y);
-        if (attackDetect())
+        if (!isAttack)
+        {
+            if (transform.position.x >= rightPos.x && facing == 1)
+                flip();
+            else if (transform.position.x <= leftPos.x && facing == -1)
+                flip();
+            if (detectPlayer() && gloablManager.instance.player.trigger.isColorBlue != color)
+                rb.velocity = new Vector2(followSpeed * facing, rb.velocity.y);
+            else
+                rb.velocity = new Vector2(speed * facing, rb.velocity.y);
+        }
+        if (attackDetect() && gloablManager.instance.player.trigger.isColorBlue != color)
             playAttack();
+        attackTimer += Time.deltaTime;
     }
     private bool attackDetect()
     {
@@ -89,15 +95,20 @@ public class enemyControl : MonoBehaviour
     {
         if (attackTimer < attackCool)
             return;
+        isAttack = true;
         attackTimer = 0;
         anim.SetBool("isAttack", true);
     }
     public void attack()
     {
+        changeColor();
+        gloablManager.instance.player.trigger.isColorBlue = (gloablManager.instance.player.trigger.isColorBlue + 1) % 2;
+        gloablManager.instance.player.changeColor();
         gloablManager.instance.player.hurt(20);
     }
     public void attackEnd()
     {
         anim.SetBool("isAttack", false);
+        isAttack = false;
     }
 }

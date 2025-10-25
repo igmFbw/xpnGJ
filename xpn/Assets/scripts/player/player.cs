@@ -88,6 +88,7 @@ public class player : MonoBehaviour
         float newScale = transform.localScale.y - .15f;
         softBlob.resize(newScale);
         calculateAttribute();
+        uiManager.instance.updateHealth(height);
     }
     public void sameTrigger(GameObject go)
     {
@@ -96,6 +97,7 @@ public class player : MonoBehaviour
             height += go.GetComponent<softBucket>().bucketNum;
             if (height > 100)
                 height = 100;
+            uiManager.instance.updateHealth(height);
             audioControl.playEatBucketClip();
             calculateAttribute();
             Destroy(go);
@@ -167,6 +169,7 @@ public class player : MonoBehaviour
     {
         Instantiate(dieEffects[trigger.isColorBlue],transform.position,Quaternion.identity);
         Destroy(gameObject);
+        gloablManager.instance.playDieClip();
     }
     public void hurt(int damage)
     {
@@ -177,6 +180,7 @@ public class player : MonoBehaviour
         height -= damage;
         float newScale = transform.localScale.y - .15f;
         audioControl.playHurtClip();
+        uiManager.instance.updateHealth(height);
         if (height <= 0)
         {
             die();

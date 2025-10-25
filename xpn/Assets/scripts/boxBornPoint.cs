@@ -8,6 +8,7 @@ public class boxBornPoint : MonoBehaviour
     private void Start()
     {
         canBorn = true;
+        Instantiate(boxPrefab, transform.position, Quaternion.identity);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

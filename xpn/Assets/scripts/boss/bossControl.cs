@@ -11,6 +11,7 @@ public class bossControl : MonoBehaviour
     [SerializeField] private CanvasGroup finaCg;
     [SerializeField] private Image finaImage;
     [SerializeField] private List<Color> finaColor;
+    [SerializeField] private AudioSource audioPlayer;
     private float attackTimer;
     private float attackCool;
     private int health;
@@ -85,7 +86,7 @@ public class bossControl : MonoBehaviour
     }
     private void die()
     {
-
+        audioPlayer.Play();
     }
     private void attack()
     {

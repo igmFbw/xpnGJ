@@ -42,8 +42,7 @@ GameObject:
   - component: {fileID: 8581142717841526743}
   - component: {fileID: 8298548845858266498}
   - component: {fileID: 7633978639677758654}
-  - component: {fileID: 8148062175017027789}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: playerMainTrigger
   m_TagString: mainPlayer
   m_Icon: {fileID: 0}
@@ -127,19 +126,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &8148062175017027789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3333596389543908470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16eda0bd89066fd4d9e32437a449d558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isColorBlue: 0
 --- !u!1 &3733108273935026929
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +355,7 @@ MonoBehaviour:
   auSource: {fileID: 4783607648602774326}
   eatBucketClip: {fileID: 8300000, guid: 666ed4d546866b547ad70fed19f5d059, type: 3}
   hurtClip: {fileID: 8300000, guid: c2eae655a364bcb4493e575fe9f3b7c0, type: 3}
-  jumpClip: {fileID: 8300000, guid: 7cae16e5eedb0a44d98783b6efb16f43, type: 3}
+  jumpClip: {fileID: 8300000, guid: ab7c28a92639c8d4198702774b79e7c6, type: 3}
   squatClip: {fileID: 8300000, guid: 736b56eca4bda9c449116479da02c40b, type: 3}
 --- !u!82 &4783607648602774326
 AudioSource:
@@ -380,7 +366,7 @@ AudioSource:
   m_GameObject: {fileID: 3976591028067218941}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -114960470841765348, guid: 22a2a09e371a74e42a0f0b686c78671b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

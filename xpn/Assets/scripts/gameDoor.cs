@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class gameDoor : MonoBehaviour
 {
     [SerializeField] private Animator anim;
@@ -11,6 +12,6 @@ public class gameDoor : MonoBehaviour
     }
     public void win()
     {
-        //
+        SceneManager.LoadScene(gloablManager.instance.gameIndex + 1);
     }
 }

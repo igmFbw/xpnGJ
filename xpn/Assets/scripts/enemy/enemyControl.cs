@@ -14,10 +14,14 @@ public class enemyControl : MonoBehaviour
     [SerializeField] private Transform detectPos;
     [SerializeField] private Vector2 detectDistance;
     [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private Transform attackDetectPos;
+    [SerializeField] private float attackDistance;
     public int color;
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Animator anim;
     [SerializeField] private List<Color> colorList;
+    private float attackCool;
+    private float attackTimer;
     private Vector3 leftPos;
     private Vector3 rightPos;
     private void Start()
@@ -26,6 +30,8 @@ public class enemyControl : MonoBehaviour
         sr.color = colorList[color];
         leftPos = leftPoint.position;
         rightPos = rightPoint.position;
+        attackTimer = 0;
+        attackCool = 1.5f;
     }
     private void Update()
     {
@@ -37,6 +43,12 @@ public class enemyControl : MonoBehaviour
             rb.velocity = new Vector2(followSpeed * facing, rb.velocity.y);
         else
             rb.velocity = new Vector2(speed * facing, rb.velocity.y);
+        if (attackDetect())
+            playAttack();
+    }
+    private bool attackDetect()
+    {
+        return Physics2D.OverlapCircle(attackDetectPos.position, attackDistance, playerLayer);
     }
     public void die()
     {
@@ -46,6 +58,7 @@ public class enemyControl : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(attackDetectPos.position, attackDistance);
         Gizmos.DrawWireCube(detectPos.position, detectDistance);
     }
     private void flip()
@@ -74,11 +87,14 @@ public class enemyControl : MonoBehaviour
     }
     public void playAttack()
     {
+        if (attackTimer < attackCool)
+            return;
+        attackTimer = 0;
         anim.SetBool("isAttack", true);
     }
     public void attack()
     {
-
+        gloablManager.instance.player.hurt(20);
     }
     public void attackEnd()
     {

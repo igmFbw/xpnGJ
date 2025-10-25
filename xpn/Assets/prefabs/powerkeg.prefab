@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4895821183377484803}
   - component: {fileID: 8064898645980170016}
   - component: {fileID: 8474576132923495005}
+  - component: {fileID: 5680668903780422616}
   m_Layer: 10
   m_Name: powerkeg
   m_TagString: powerkeg
@@ -178,3 +179,16 @@ MonoBehaviour:
   sr: {fileID: 7681549200785391046}
   wallCollider: {fileID: 4895821183377484803}
   rb: {fileID: 0}
+--- !u!114 &5680668903780422616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5210117862054842899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9f4c6ce00fb2104dbfca6fc4ceac6e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wall: {fileID: 8474576132923495005}

@@ -9,7 +9,7 @@ public class thornControl : MonoBehaviour
     [SerializeField] private List<Sprite> sprites;
     private void Start()
     {
-        //sr.sprite = sprites[color];
+        sr.sprite = sprites[color];
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

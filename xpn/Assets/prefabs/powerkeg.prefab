@@ -178,7 +178,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0350853ee89ed4b47b6d5469192a2ea7, type: 3}
   sr: {fileID: 7681549200785391046}
   wallCollider: {fileID: 4895821183377484803}
-  rb: {fileID: 0}
+  rb: {fileID: 8064898645980170016}
 --- !u!114 &5680668903780422616
 MonoBehaviour:
   m_ObjectHideFlags: 0

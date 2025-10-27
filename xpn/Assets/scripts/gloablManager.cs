@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class gloablManager : MonoBehaviour
     public bossControl boss;
     [SerializeField] private AudioSource audioPlayer;
     [SerializeField] private AudioClip dieClip;
+    [SerializeField] private CanvasGroup dieCg;
     private void Awake()
     {
         instance = this;
@@ -36,5 +38,7 @@ public class gloablManager : MonoBehaviour
     {
         audioPlayer.clip = dieClip;
         audioPlayer.Play();
+        dieCg.DOFade(1, 1);
+        isDie = true;
     }
 }

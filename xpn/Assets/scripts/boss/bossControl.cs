@@ -12,6 +12,9 @@ public class bossControl : MonoBehaviour
     [SerializeField] private Image finaImage;
     [SerializeField] private List<Color> finaColor;
     [SerializeField] private AudioSource audioPlayer;
+    [SerializeField] private List<GameObject> wallGo;
+    private int wallIndex;
+    private float wallTimer;
     private float attackTimer;
     private float attackCool;
     private int health;
@@ -37,6 +40,9 @@ public class bossControl : MonoBehaviour
         state = 1;
         isFina = false;
         finaIndex = 0;
+        wallIndex = 0;
+        wallGo[wallIndex].SetActive(false);
+        wallGo[(wallIndex + 1) % 2].SetActive(true);
     }
     private void OnDrawGizmos()
     {
@@ -67,6 +73,14 @@ public class bossControl : MonoBehaviour
             finaCg.gameObject.SetActive(true);
             finaCg.DOFade(1, 1);
             isFina = true;
+        }
+        wallTimer += Time.deltaTime;
+        if(wallTimer > 20f)
+        {
+            wallTimer = 0;
+            wallGo[wallIndex].SetActive(false);
+            wallIndex = (wallIndex + 1) % 2;
+            wallGo[wallIndex].SetActive(true);
         }
     }
     public void hurt(int damage)

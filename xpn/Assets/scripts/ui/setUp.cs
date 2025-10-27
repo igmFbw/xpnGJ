@@ -39,4 +39,8 @@ public class setUp : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+    public void rePlay()
+    {
+        SceneManager.LoadScene(gloablManager.instance.gameIndex);
+    }
 }

@@ -10,7 +10,6 @@ public class bossHand : MonoBehaviour
     [SerializeField] private LayerMask kegLayer;
     [SerializeField] private float handAttackDistance;
     [SerializeField] private LineRenderer lr;
-    [SerializeField] private Material rayMaterial;
     [SerializeField] private Transform rayPos;
     [SerializeField] private bossRayDetect rayDetectPos;
     [SerializeField] private GameObject explosionEffect;
@@ -63,6 +62,7 @@ public class bossHand : MonoBehaviour
         Collider2D kegCo = Physics2D.OverlapCircle(attackPos.position, handAttackDistance, kegLayer);
         if (kegCo != null)
         {
+            Debug.Log("1");
             if (kegCo.GetComponent<wall>().isColorBlue != color)
             {
                 gloablManager.instance.boss.hurt(10);
@@ -104,7 +104,6 @@ public class bossHand : MonoBehaviour
                 {
                     if (go[i].transform.GetComponent<wall>().isColorBlue != color)
                     {
-                        hurtAction?.Invoke(10);
                         Destroy(go[i].transform.gameObject);
                         GameObject newEffect = Instantiate(explosionEffect, go[i].transform.position, Quaternion.identity);
                         Destroy(newEffect, .2f);

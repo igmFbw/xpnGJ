@@ -95,12 +95,15 @@ public class player : MonoBehaviour
         if (go.tag == "bucket")
         {
             height += go.GetComponent<softBucket>().bucketNum;
-            if (height > 100)
-                height = 100;
-            uiManager.instance.updateHealth(height);
             audioControl.playEatBucketClip();
-            calculateAttribute();
             Destroy(go);
+            if (height > 100)
+            {
+                height = 100;
+                return;
+            }
+            uiManager.instance.updateHealth(height);
+            calculateAttribute();
             softBlob.resize(transform.localScale.y + .15f);
         }
         else if(go.tag == "wall")

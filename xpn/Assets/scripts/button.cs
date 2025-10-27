@@ -11,8 +11,8 @@ public class button : MonoBehaviour
     {
         if(collision.tag == "mainPlayer"||collision.tag=="box")
         {
-            //anim.SetBool("isOpen", true);
-            //door.isTrigger = true;
+            anim.SetBool("isOpen", true);
+            door.isTrigger = true;
             sr.sprite = sprites[1];
         }
     }
@@ -20,8 +20,8 @@ public class button : MonoBehaviour
     {
         if (collision.tag == "mainPlayer" || collision.tag == "box")
         {
-            //anim.SetBool("isOpen", false);
-            //door.isTrigger = false;
+            anim.SetBool("isOpen", false);
+            door.isTrigger = false;
             sr.sprite = sprites[0];
         }
     }

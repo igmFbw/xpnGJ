@@ -18,7 +18,7 @@ public class kegBorn : MonoBehaviour
         if (bornTimer >= bornCool)
         {
             bornTimer = 0;
-            Instantiate(kegPrefab, bornPos[Random.Range(0,6)].position,Quaternion.identity);
+            Instantiate(kegPrefab, bornPos[Random.Range(0,5)].position,Quaternion.identity);
         }
     }
 }

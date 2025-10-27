@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class bossControl : MonoBehaviour
 {
     [SerializeField] private Animator bodyAnim;
@@ -12,7 +13,9 @@ public class bossControl : MonoBehaviour
     [SerializeField] private Image finaImage;
     [SerializeField] private List<Color> finaColor;
     [SerializeField] private AudioSource audioPlayer;
+    [SerializeField] private Slider healthSlider;
     [SerializeField] private List<GameObject> wallGo;
+    [SerializeField] private CanvasGroup winCg;
     private int wallIndex;
     private float wallTimer;
     private float attackTimer;
@@ -51,7 +54,7 @@ public class bossControl : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        /*if (Input.GetKeyDown(KeyCode.W))
         {
             attack1();
         }
@@ -62,7 +65,7 @@ public class bossControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             state = 3;
-        }
+        }*/
         if(state != 3)
             attack();
         else
@@ -86,6 +89,7 @@ public class bossControl : MonoBehaviour
     public void hurt(int damage)
     {
         health -= damage;
+        healthSlider.value = health;
         if (health <= 60)
             state = 2;
         else if (health <= 20)
@@ -101,6 +105,11 @@ public class bossControl : MonoBehaviour
     private void die()
     {
         audioPlayer.Play();
+        winCg.gameObject.SetActive(true);
+        winCg.DOFade(1, 1).OnComplete(()=>
+        {
+            SceneManager.LoadScene(0);
+        });
     }
     private void attack()
     {

@@ -6,6 +6,6 @@ public class kegControl : MonoBehaviour
     [SerializeField] private wall wall;
     private void Awake()
     {
-        //wall.isColorBlue = Random.Range(0, 2);
+        wall.isColorBlue = Random.Range(0, 2);
     }
 }

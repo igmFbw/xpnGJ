@@ -10,7 +10,7 @@ public class bossRayDetect : MonoBehaviour
     private void OnEnable()
     {
         transform.position = new Vector2(Camera.main.transform.position.x + (facing * 12f), transform.position.y);
-        transform.DOMoveX(Camera.main.transform.position.x - (facing * 12f), .5f);
+        transform.DOMoveX(Camera.main.transform.position.x - (facing * 12f), 1f);
     }
     private void Update()
     {

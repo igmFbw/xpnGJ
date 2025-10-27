@@ -54,15 +54,15 @@ public class bossHand : MonoBehaviour
     {
         audioSource.clip = hitClip;
         audioSource.Play();
-        if (gloablManager.instance.player.trigger.isColorBlue == color)
-            return;
-        Collider2D playerCo = Physics2D.OverlapCircle(attackPos.position, handAttackDistance, playerLayer);
-        if (playerCo != null)
-            gloablManager.instance.player.hurt(100);
+        if (gloablManager.instance.player.trigger.isColorBlue != color)
+        {
+            Collider2D playerCo = Physics2D.OverlapCircle(attackPos.position, handAttackDistance, playerLayer);
+            if (playerCo != null)
+                gloablManager.instance.player.hurt(100);
+        }
         Collider2D kegCo = Physics2D.OverlapCircle(attackPos.position, handAttackDistance, kegLayer);
         if (kegCo != null)
         {
-            Debug.Log("1");
             if (kegCo.GetComponent<wall>().isColorBlue != color)
             {
                 gloablManager.instance.boss.hurt(10);

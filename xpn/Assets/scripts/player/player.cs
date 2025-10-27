@@ -30,6 +30,7 @@ public class player : MonoBehaviour
     private float cuSpeed;
     private float attackTimer;
     private bool isInvincible;
+    [SerializeField] private int startHeight = 100;
     private void Awake()
     {
         trigger.sameTriggerEvent += sameTrigger;
@@ -41,10 +42,16 @@ public class player : MonoBehaviour
         idleAnim = true;
         idleTimer = 0;
         isFaceRight = 1;
-        height = 100;
+        height = startHeight;
         cuJumpForce = jumpForce;
         cuSpeed = speed;
         isInvincible = false;
+        if(height!=100)
+        {
+            softBlob.resize(1.9f);
+            calculateAttribute();
+            uiManager.instance.updateHealth(height);
+        }
     }
     private void Update()
     {

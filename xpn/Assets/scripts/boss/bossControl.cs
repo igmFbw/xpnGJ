@@ -60,6 +60,7 @@ public class bossControl : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
+            state = 2;
             attack2();
         }
         if (Input.GetKeyDown(KeyCode.G))

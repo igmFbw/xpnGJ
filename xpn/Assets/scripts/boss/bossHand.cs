@@ -58,7 +58,7 @@ public class bossHand : MonoBehaviour
         {
             Collider2D playerCo = Physics2D.OverlapCircle(attackPos.position, handAttackDistance, playerLayer);
             if (playerCo != null)
-                gloablManager.instance.player.hurt(100);
+                gloablManager.instance.player.hurt(20);
         }
         Collider2D kegCo = Physics2D.OverlapCircle(attackPos.position, handAttackDistance, kegLayer);
         if (kegCo != null)
